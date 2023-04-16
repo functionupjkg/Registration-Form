@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 axios.defaults.baseURL = "http://localhost:4000";
 
+
 export default function Register() {
   const Navigate = useNavigate();
   const [name, setName] = useState("");

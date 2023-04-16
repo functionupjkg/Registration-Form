@@ -2,16 +2,17 @@ const express = require("express");
 const userModel = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const userDataModel = require("../models/userDataModel")
 
 //=========================================================REGISTER==================================================
 async function regiserUser(req, res) {
-  const { name,email, password } = req.body;
-  let data = { email, password,name };
+  const { name, email, password } = req.body;
+  let data = { email, password, name };
   console.log(data);
 
-  let isUser = await userModel.findOne({email:email})
-  if(isUser){
-    return res.status(400).send({status:false,message:"User already exist"})
+  let isUser = await userModel.findOne({ email: email })
+  if (isUser) {
+    return res.status(400).send({ status: false, message: "User already exist" })
   }
 
   const hash = bcrypt.hashSync(password, 10);
@@ -19,7 +20,7 @@ async function regiserUser(req, res) {
 
   let user = await userModel.create(data);
 
-  return res.status(200).send({ status: true,message:"Registered Successfully" });
+  return res.status(200).send({ status: true, message: "Registered Successfully" });
 }
 
 //================================================LOGIN========================================
@@ -67,7 +68,7 @@ async function getUser(req, res) {
 
     const email = decoded.email;
     const user = await userModel.findOne({ email: email });
-    console.log("user "+user);
+    console.log("user " + user);
 
     return res.status(200).send({ status: true, data: user });
   } catch (error) {
@@ -76,4 +77,23 @@ async function getUser(req, res) {
   }
 }
 
-module.exports = { regiserUser, login, getUser };
+
+
+//========================================================= REGISTER form ==================================================
+async function registeredForm(req, res) {
+  
+  let data = req.body
+    console.log(data)
+  
+ 
+  let userData = await userDataModel.create(data);
+  console.log(userData)
+
+  return res.status(200).send({ status: true, message: "Data Send Successfully" });
+}
+
+
+
+
+
+module.exports = { regiserUser, login, getUser, registeredForm };

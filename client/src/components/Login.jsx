@@ -1,5 +1,14 @@
 import { useState } from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {
+  FaFacebookF,
+  FaLinkedin,
+  FaGithub,
+  FaGoogle
+
+} from "react-icons/fa";
+import '../../src/style/smedia.css'
+import {signWithPopup, GithubAuthProvider, GoogleAuthProvider} from "firebase/auth" ;
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -30,14 +39,20 @@ function Login() {
     }
   }
 
+  const signInWithGoogle = () =>{
+
+  }
+
+
+
   return (
-    
+
     <div className="login-container">
-    
+
       <form onSubmit={loginUser}>
-      <div ><h2 >Welcome back to smile</h2></div>
-     <hr className="line"></hr>      
-      <label>Email Id</label>
+        <div ><h2 className="login-head" >Welcome back to smile</h2></div>
+        <hr className="line"></hr>
+        <label>Email Id</label>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -53,10 +68,33 @@ function Login() {
           placeholder="Password"
         />
         <br />
-        <input  type="submit" value="Login" />
+        <input type="submit" value="Login" />
         <p>New here? <Link to="/register" className="account" >Create a new account.</Link></p>
+
+
+        {/* ---------------------------Social Link Section-------------------- */}
+       
+        <p className="auth-login">Or Login with <hr /></p>
+        <div className="social-media ">
+          <Link >
+            <FaFacebookF className="text-sm " />
+          </Link>
+          <Link >
+            <FaLinkedin className="text-sm " />
+          </Link>
+          <Link >
+            <FaGithub className="text-sm " />
+          </Link>
+          <Link >
+            <FaGoogle className="text-sm " />
+          </Link>
+        </div>
+        {/* -----------------End Social Section----------- */}
+
+
+
       </form>
-      
+
     </div>
   );
 }
